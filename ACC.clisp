@@ -1,0 +1,7 @@
+(setq a (read-line))
+(setq b (read-line))
+
+(write (+ (parse-integer a) (parse-integer b)))
+(write-char #\Newline)
+(write (* (parse-integer a) (parse-integer b)))
+

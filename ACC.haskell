@@ -1,0 +1,13 @@
+module Main where
+
+            
+main = do 
+    var <- getLine
+    let temp = read var::Int
+    var <- getLine
+    let temp1 = read var::Int
+    let res  = temp1 + temp
+    print (res)
+    let res  = temp1 * temp
+    print (res)
+    --putStrLn ""

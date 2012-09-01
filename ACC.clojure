@@ -1,0 +1,13 @@
+(ns solution
+(:gen-class))
+
+(defn addnmul [a, b]
+	(println(+ a b))
+	(println(* a b))
+)
+
+(defn -main []
+(addnmul (Integer/parseInt (read-line)) (Integer/parseInt (read-line)))
+)
+
+
