@@ -2,26 +2,26 @@ import Foundation
 
 protocol __{};extension String:__{};extension Int:__{};extension Int64:__{};extension Double:__{}
 class InputScanner {  //based on https://github.com/shoumikhin/StreamScanner
-    let source = NSFileHandle.fileHandleWithStandardInput()
-    let delimiters = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-    var buffer: NSScanner?
-    func read<T: __>() -> T? {
-        if buffer == nil || buffer!.atEnd {
-            if let nextInput = NSString(data: source.availableData, encoding: NSUTF8StringEncoding) {
-                buffer = NSScanner(string: nextInput as String)}}
-        if buffer == nil { return nil }
-        var token: NSString?
-        if !buffer!.scanUpToCharactersFromSet(delimiters, intoString: &token) || token == nil { return nil }
-        buffer!.scanCharactersFromSet(delimiters, intoString: nil)
-        var ret: T? = nil
-        if ret is String? { return token as? T }
-        let scanner = NSScanner(string: token as! String)
-        switch ret {
-        case is Int? : var value: Int = 0; if scanner.scanInteger(&value) { ret = value as? T }
-        case is Int64? : var value: Int64 = 0; if scanner.scanLongLong(&value) { ret = value as? T }
-        case is Double? : var value: Double = 0; if scanner.scanDouble(&value) { ret = value as? T }
-        default : ret = nil}
-        return ret}}
+  let source = FileHandle.standardInput
+  let delimiters = CharacterSet.whitespacesAndNewlines
+  var buffer: Scanner?
+  func read<T: __>() -> T? {
+    if buffer?.isAtEnd ?? true {
+      if let nextInput = String(data: source.availableData, encoding: .utf8) {
+        buffer = Scanner(string: nextInput) }}
+    if buffer == nil { return nil }
+    var token: NSString?
+    guard buffer?.scanUpToCharacters(from: delimiters, into: &token) ?? false,
+      let string = token as? String else { return nil }
+    buffer?.scanCharacters(from: delimiters, into: nil)
+    let scanner = Scanner(string: string)
+    switch T.self {
+    case is String.Type: return token as? T
+    case is Int.Type : var value: Int = 0; if scanner.scanInt(&value) { return value as? T }
+    case is Int64.Type : var value: Int64 = 0; if scanner.scanInt64(&value) { return value as? T }
+    case is Double.Type : var value: Double = 0; if scanner.scanDouble(&value) { return value as? T }
+    default : break }
+    return nil }}
 let io = InputScanner()
 
 if
