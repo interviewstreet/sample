@@ -14,5 +14,5 @@ int main() {
 	int _b;
 	scanf("%d", &_b);
 	addnmul(_a, _b);
-	return 0;                
+	return 0;
 }
